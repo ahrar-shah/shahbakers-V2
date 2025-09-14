@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "name": "foodapp-fullstack",
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "frontend/dist" }
+    },
+    {
+      "src": "backend/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/dist/$1"
+    }
+  ],
+  "env": {
+    "MONGO_URI": "@mongo_uri",
+    "JWT_SECRET": "@jwt_secret",
+    "GMAIL_USER": "@gmail_user",
+    "GMAIL_PASS": "@gmail_pass",
+    "ADMIN_EMAIL": "@admin_email"
+  }
+}
